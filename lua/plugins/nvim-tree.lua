@@ -4,7 +4,7 @@ return {
 	config = function()
 		require("nvim-tree").setup({
 			filters = {
-				dotfiles = false,
+				dotfiles = true,
 			},
 			view = {
 				adaptive_size = true,
