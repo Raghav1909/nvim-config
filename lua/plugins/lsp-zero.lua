@@ -60,6 +60,8 @@ return {
 		},
 		config = function()
 			local lsp_zero = require("lsp-zero")
+			local lspconfig = require("lspconfig")
+			local util = require("lspconfig.util")
 
 			-- lsp_attach is where you enable features that only work
 			-- if there is a language server active in the file
@@ -99,10 +101,28 @@ return {
 					"gopls",
 				},
 				handlers = {
-					-- this first function is the "default handler"
-					-- it applies to every language server without a "custom handler"
+					-- Default handler for all LSP servers
 					function(server_name)
 						require("lspconfig")[server_name].setup({})
+					end,
+					-- Custom handler for gopls
+					["gopls"] = function()
+						lspconfig.gopls.setup({
+							on_attach = lsp_attach,
+							capabilities = require("cmp_nvim_lsp").default_capabilities(),
+							cmd = { "gopls" },
+							filetypes = { "go", "gomod", "gowork", "gotmpl" },
+							root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+							settings = {
+								gopls = {
+									completeUnimported = true,
+									usePlaceholders = true,
+									analyses = {
+										unusedparams = true,
+									},
+								},
+							},
+						})
 					end,
 				},
 			})
