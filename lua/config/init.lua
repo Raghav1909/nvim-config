@@ -9,6 +9,46 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+-- -- Function to set highlights to transparent
+-- local function set_transparent_highlights()
+-- 	local highlights = {
+-- 		"Normal",
+-- 		"NormalNC",
+-- 		"LineNr",
+-- 		"CursorLineNr",
+-- 		"SignColumn",
+-- 		"VertSplit",
+-- 		"StatusLine",
+-- 		"StatusLineNC",
+-- 		"WinSeparator",
+-- 		"EndOfBuffer",
+-- 		"NvimTreeNormal",
+-- 		"NvimTreeNormalNC",
+-- 		"NvimTreeEndOfBuffer",
+-- 		"TabLineFill",
+-- 		"TabLine",
+-- 		"TabLineSel",
+-- 	}
+--
+-- 	for _, group in ipairs(highlights) do
+-- 		vim.api.nvim_set_hl(0, group, { bg = "NONE" })
+-- 	end
+-- end
+--
+-- -- Call the function to set the highlights
+-- set_transparent_highlights()
+
+-- Autocommand to ensure highlights are set after colorscheme loads
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		set_transparent_highlights()
+-- 	end,
+-- })
+
+-- Call the function once initially to set highlights
+-- set_transparent_highlights()
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	vim.fn.system({
